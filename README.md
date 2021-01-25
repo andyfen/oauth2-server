@@ -31,7 +31,7 @@ curl -v -X POST http://localhost:8080/oauth2/token \
  -d "grant_type=client_credentials&client_id=3dbb92f9-4e08-4e12-b277-b7ce8a108edb&client_secret=70b963f8-7d9b-4d19-845c-44a20239dd20&scope=read"
 ```
 
-
+Response
 ```
 {
   "access_token": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiNjhhYjA0Zi0yYTEzLTRjNDItYmU0ZC05ZmEwMTVmYmRmYzIiLCJleHAiOjE2MTE1NTM2MjZ9.NWh_mTk9XUgCgRiDrfhRF7X5GvptUwyFR77cgQdQIDzIa4t22gnO50EBejkrzsud6cHE8OtOZW454M9V05qllg",
