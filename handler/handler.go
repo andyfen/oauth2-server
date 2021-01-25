@@ -36,7 +36,6 @@ func (h *Handler) Register(r *chi.Mux) {
 	r.Post("/oauth2/token", h.tokenHandler)
 	r.Get("/api/protected", auth.ValidateToken(h.protectedHandler, h.srv))
 
-	r.Get("/test", h.testHandler)
 }
 
 // respondwithJSON write json response format
