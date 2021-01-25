@@ -19,8 +19,9 @@ curl http://localhost:8080/credentials
 
 ### Access token
 GET
-http://localhost:8080/oauth2/token?grant_type=client_credentials&client_id=b68ab04f-2a13-4c42-be4d-9fa015fbdfc2&client_secret=b93755cb-25f8-4d72-8755-6b05bc1ed169&scope=read
-
+```
+curl http://localhost:8080/oauth2/token?grant_type=client_credentials&client_id=b68ab04f-2a13-4c42-be4d-9fa015fbdfc2&client_secret=b93755cb-25f8-4d72-8755-6b05bc1ed169&scope=read
+```
 
 POST
 ```
@@ -55,9 +56,6 @@ curl -v -X GET http://localhost:8080/api/protected \
 #### Dev 
 ```
 $ make dev
-```
-
-```
 $ make stop
 ```
 
