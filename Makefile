@@ -5,6 +5,6 @@ dev:
 	JWT_KEY=zUxMiIsInR5c \
 	go run main.go
 
-.PHONY: dev-down
-dev-down:
+.PHONY: stop
+stop:
 	docker-compose -f  tools/docker-compose.dev.yml down
