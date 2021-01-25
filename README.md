@@ -1,6 +1,6 @@
 # OAuth2 Server
 
-uses https://github.com/go-oauth2/oauth2
+
 
 ### Run
 ```
@@ -60,4 +60,3 @@ curl -v -X GET http://localhost:8080/api/protected \
 $ make dev
 $ make stop
 ```
-
