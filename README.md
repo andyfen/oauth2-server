@@ -1,7 +1,5 @@
 # OAuth2 Server
 
-uses https://github.com/go-oauth2/oauth2
-
 ### Run
 ```
 $ docker-compose up -d
