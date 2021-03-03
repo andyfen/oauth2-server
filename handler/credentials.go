@@ -22,9 +22,6 @@ func (h *Handler) credentialsHandler(w http.ResponseWriter, r *http.Request) {
 	clientID, _ := randomHex(32)
 	clientSecret, _ := randomHex(32)
 
-	fmt.Println(clientID)
-	fmt.Println(clientSecret)
-
 	err := h.clientStore.Set(clientID, &models.Client{
 		ID:     clientID,
 		Secret: clientSecret,
