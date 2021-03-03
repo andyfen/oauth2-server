@@ -21,7 +21,6 @@ curl http://localhost:8080/credentials
 
 ### Access token
 
-POST
 ```
 curl -v -X POST http://localhost:8080/oauth2/token \
  -d "grant_type=client_credentials&client_id=35c6261e85960ccdde15d4bd6ef6032c4d77b434217b411807242edbe2edafe7&client_secret=c2f7efda2b999e8acd565c793b31feab7d9cf2cb4cb1660d8bcfeae3f99b3f4d&scope=read"
