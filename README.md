@@ -23,7 +23,7 @@ curl http://localhost:8080/credentials
 
 ```
 curl -v -X POST http://localhost:8080/oauth2/token \
- -d "grant_type=client_credentials&client_id=35c6261e85960ccdde15d4bd6ef6032c4d77b434217b411807242edbe2edafe7&client_secret=c2f7efda2b999e8acd565c793b31feab7d9cf2cb4cb1660d8bcfeae3f99b3f4d&scope=read"
+ -d "grant_type=client_credentials&client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&scope=read"
 ```
 
 Response
@@ -40,13 +40,13 @@ Response
 
 Param
 ```
-curl http://localhost:8080/api/protected?access_token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIzNWM2MjYxZTg1OTYwY2NkZGUxNWQ0YmQ2ZWY2MDMyYzRkNzdiNDM0MjE3YjQxMTgwNzI0MmVkYmUyZWRhZmU3IiwiZXhwIjoxNjE0NzU3NTI2fQ.LJqHtXn_Y0waZRHHOz4CY7GRx3vGJjybAP4E2CrzVmdSLVCzWnJ1HBstzR4m-Y6XVXPqKR9ieh7vWwapLQemmw
+curl http://localhost:8080/api/protected?access_token=<ACCESS_TOKEN>
 ```
 
 Header Authorization: Bearer
 ```
 curl -v -X GET http://localhost:8080/api/protected \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIzNWM2MjYxZTg1OTYwY2NkZGUxNWQ0YmQ2ZWY2MDMyYzRkNzdiNDM0MjE3YjQxMTgwNzI0MmVkYmUyZWRhZmU3IiwiZXhwIjoxNjE0NzU3NTI2fQ.LJqHtXn_Y0waZRHHOz4CY7GRx3vGJjybAP4E2CrzVmdSLVCzWnJ1HBstzR4m-Y6XVXPqKR9ieh7vWwapLQemmw"
+  -H "Authorization: Bearer <ACCESS_TOKEN>"
 ```
 
