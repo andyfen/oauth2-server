@@ -1,26 +1,29 @@
 package handler
 
 import (
+	"crypto/rand"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
-	"github.com/go-oauth2/oauth2/v4/models"
-	"github.com/google/uuid"
-	"log"
 	"net/http"
+
+	"github.com/go-oauth2/oauth2/v4/models"
 )
 
-func makeUUID() string {
-	uuid, err := uuid.NewRandom()
-	if err != nil {
-		log.Fatal("uuid")
+func randomHex(n int) (string, error) {
+	bytes := make([]byte, n)
+	if _, err := rand.Read(bytes); err != nil {
+		return "", err
 	}
-
-	return uuid.String()
+	return hex.EncodeToString(bytes), nil
 }
 
 func (h *Handler) credentialsHandler(w http.ResponseWriter, r *http.Request) {
-	clientID := makeUUID()
-	clientSecret := makeUUID()
+	clientID, _ := randomHex(32)
+	clientSecret, _ := randomHex(32)
+
+	fmt.Println(clientID)
+	fmt.Println(clientSecret)
 
 	err := h.clientStore.Set(clientID, &models.Client{
 		ID:     clientID,

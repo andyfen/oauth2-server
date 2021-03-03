@@ -14,21 +14,17 @@ curl http://localhost:8080/credentials
 
 ```
 {
-  "client_id": "3dbb92f9-4e08-4e12-b277-b7ce8a108edb",
-  "client_secret": "70b963f8-7d9b-4d19-845c-44a20239dd20"
+    "client_id": "35c6261e85960ccdde15d4bd6ef6032c4d77b434217b411807242edbe2edafe7",
+    "client_secret": "c2f7efda2b999e8acd565c793b31feab7d9cf2cb4cb1660d8bcfeae3f99b3f4d"
 }
 ```
 
 ### Access token
-- via GET
-```
-curl http://localhost:8080/oauth2/token?grant_type=client_credentials&client_id=b68ab04f-2a13-4c42-be4d-9fa015fbdfc2&client_secret=b93755cb-25f8-4d72-8755-6b05bc1ed169&scope=read
-```
 
-- via POST
+POST
 ```
 curl -v -X POST http://localhost:8080/oauth2/token \
- -d "grant_type=client_credentials&client_id=3dbb92f9-4e08-4e12-b277-b7ce8a108edb&client_secret=70b963f8-7d9b-4d19-845c-44a20239dd20&scope=read"
+ -d "grant_type=client_credentials&client_id=35c6261e85960ccdde15d4bd6ef6032c4d77b434217b411807242edbe2edafe7&client_secret=c2f7efda2b999e8acd565c793b31feab7d9cf2cb4cb1660d8bcfeae3f99b3f4d&scope=read"
 ```
 
 Response
@@ -42,21 +38,16 @@ Response
 ```
 
 ### Protected
-- via Param
+
+Param
 ```
-curl http://localhost:8080/api/protected?access_token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiNjhhYjA0Zi0yYTEzLTRjNDItYmU0ZC05ZmEwMTVmYmRmYzIiLCJleHAiOjE2MTE1NTM3MDV9.3oor4USEWfJVNWxIZGLkaMx7afi3nGqykrb7Q8lY7bmMyGalDAWOUW7f5747324cTxPnJujT9wmYJzA4pxvPyg
+curl http://localhost:8080/api/protected?access_token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIzNWM2MjYxZTg1OTYwY2NkZGUxNWQ0YmQ2ZWY2MDMyYzRkNzdiNDM0MjE3YjQxMTgwNzI0MmVkYmUyZWRhZmU3IiwiZXhwIjoxNjE0NzU3NTI2fQ.LJqHtXn_Y0waZRHHOz4CY7GRx3vGJjybAP4E2CrzVmdSLVCzWnJ1HBstzR4m-Y6XVXPqKR9ieh7vWwapLQemmw
 ```
 
-- via Header Authorization: Bearer
+Header Authorization: Bearer
 ```
 curl -v -X GET http://localhost:8080/api/protected \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJiNjhhYjA0Zi0yYTEzLTRjNDItYmU0ZC05ZmEwMTVmYmRmYzIiLCJleHAiOjE2MTE1NTM3MDV9.3oor4USEWfJVNWxIZGLkaMx7afi3nGqykrb7Q8lY7bmMyGalDAWOUW7f5747324cTxPnJujT9wmYJzA4pxvPyg"
+  -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiIzNWM2MjYxZTg1OTYwY2NkZGUxNWQ0YmQ2ZWY2MDMyYzRkNzdiNDM0MjE3YjQxMTgwNzI0MmVkYmUyZWRhZmU3IiwiZXhwIjoxNjE0NzU3NTI2fQ.LJqHtXn_Y0waZRHHOz4CY7GRx3vGJjybAP4E2CrzVmdSLVCzWnJ1HBstzR4m-Y6XVXPqKR9ieh7vWwapLQemmw"
 ```
 
-
-#### Dev 
-```
-$ make dev
-$ make stop
-```
