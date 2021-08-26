@@ -2,13 +2,14 @@ package handler
 
 import (
 	"encoding/json"
+	"net/http"
+
 	"github.com/andyfen/oauth-server/auth"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-oauth2/oauth2/v4/manage"
 	"github.com/go-oauth2/oauth2/v4/server"
 	"github.com/go-oauth2/oauth2/v4/store"
-	"net/http"
 )
 
 // Handler route handler
@@ -32,10 +33,15 @@ func (h *Handler) Register(r *chi.Mux) {
 	r.Use(middleware.Logger)
 
 	r.Get("/credentials", h.credentialsHandler)
-	r.Get("/oauth2/token", h.tokenHandler)
-	r.Post("/oauth2/token", h.tokenHandler)
-	r.Get("/api/protected", auth.ValidateToken(h.protectedHandler, h.srv))
 
+	r.Route("/oauth2", func(r chi.Router) {
+		r.Get("/token", h.tokenHandler)
+		r.Post("/token", h.tokenHandler)
+	})
+
+	r.Route("/api", func(r chi.Router) {
+		r.Get("/protected", auth.ValidateToken(h.protectedHandler, h.srv))
+	})
 }
 
 // respondwithJSON write json response format

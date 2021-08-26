@@ -4,7 +4,6 @@ import (
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/go-oauth2/oauth2/v4/models"
@@ -28,7 +27,8 @@ func (h *Handler) credentialsHandler(w http.ResponseWriter, r *http.Request) {
 		Domain: "http://localhost:8080",
 	})
 	if err != nil {
-		fmt.Println(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
 	}
 
 	w.Header().Set("Content-Type", "application/json")

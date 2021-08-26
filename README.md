@@ -7,7 +7,7 @@
 $ docker-compose up -d
 ```
 
-### Credentials
+#### Fake Credentials
 ```
 curl http://localhost:8080/credentials
 ```
@@ -19,10 +19,10 @@ curl http://localhost:8080/credentials
 }
 ```
 
-### Access token
+#### Access token
 
 ```
-curl -v -X POST http://localhost:8080/oauth2/token \
+curl -X POST http://localhost:8080/oauth2/token \
  -d "grant_type=client_credentials&client_id=<CLIENT_ID>&client_secret=<CLIENT_SECRET>&scope=read"
 ```
 
@@ -36,7 +36,7 @@ Response
 }
 ```
 
-### Protected
+#### Protected
 
 Param
 ```
