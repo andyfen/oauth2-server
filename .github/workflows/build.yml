@@ -16,5 +16,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           dockerfile: Dockerfile
           registry: docker.pkg.github.com
-          repository: andyfen/oauth2-server
+          repository: andyfen/oauth2-server/oauth2-server
           tag_with_ref: true
