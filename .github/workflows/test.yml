@@ -1,0 +1,58 @@
+name: E2E tests
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-e2e:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        go-version: ['^1.18.3']
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Install Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+    - name: Install Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go-version }}
+    - name: Checkout Code
+      uses: actions/checkout@v2
+    - name: Start Backend Dependencies
+      run: docker-compose up -d
+
+    - name: Go Cache
+      id: go-cache
+      uses: actions/cache@v2
+      with:
+        # In order:
+        # * Module download cache
+        # * Build cache (Linux)
+        path: |
+          ~/go/pkg/mod
+          ~/.cache/go-build
+        key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-
+
+    - name: Install JS Dependencies
+      if: steps.js-cache.outputs.cache-hit != 'true'
+      run: npm i
+      env:
+        CI: true
+
+    - name: Install Go Dependencies
+      if: steps.go-cache.outputs.cache-hit != 'true'
+      run: go mod download
+
+    - name: Run E2E Tests
+      run: |
+        go run main.go &
+        sleep 10
+        npm t
+

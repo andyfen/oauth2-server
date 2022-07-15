@@ -1,12 +1,20 @@
 package config
 
 import (
-	"github.com/kelseyhightower/envconfig"
 	"log"
+
+	"github.com/kelseyhightower/envconfig"
 )
 
 // Config - app confiuration
 type Config struct {
+	Domain struct {
+		URL string `envconfig:"DOMAIN_URL"`
+	}
+	Server struct {
+		HOST string `envconfig:"SERVER_HOST"`
+		PORT string `envconfig:"SERVER_PORT"`
+	}
 	Redis struct {
 		Addr string `envconfig:"REDIS_ADDR"`
 	}

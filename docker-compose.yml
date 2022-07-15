@@ -1,16 +1,6 @@
 version: '3'
 
 services:
-  app:
-    build: ./
-    environment:
-      REDIS_ADDR: "redis:6379"
-      JWT_KEY: CHANGE_ME
-    ports:
-      - "8080:8080"
-    links:
-      - redis
-
   redis:
     image: redis:alpine
     ports:
