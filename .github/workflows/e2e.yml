@@ -12,6 +12,7 @@ jobs:
         os: [ubuntu-latest]
         go-version: ['^1.18.3']
     runs-on: ${{ matrix.os }}
+
     steps:
     - name: Install Node
       uses: actions/setup-node@v2
@@ -55,4 +56,7 @@ jobs:
         go run main.go &
         sleep 10
         npm t
-
+      env:
+        CI: true
+        CLIENT_ID: ${{secrets.CLIENT_ID}}
+        CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}

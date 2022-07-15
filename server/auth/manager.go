@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/andyfen/oauth-server/server/config"
@@ -19,15 +20,16 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 
 	// use redis token store
 	manager.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
-		Addr:     config.Redis.Addr,
+		Addr:     config.RedisAddr,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	}))
 
+	fmt.Println(config.RedisAddr)
 	manager.MapClientStorage(clientStore)
 
 	// generate jwt access token
-	manager.MapAccessGenerate(generates.NewJWTAccessGenerate("", []byte(config.Auth.JWTKey), jwt.SigningMethodHS512))
+	manager.MapAccessGenerate(generates.NewJWTAccessGenerate("", []byte(config.JWTKey), jwt.SigningMethodHS512))
 
 	return manager
 }

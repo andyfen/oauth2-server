@@ -30,7 +30,7 @@ func (h *Handler) credentialsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	respondwithJSON(w, http.StatusOK, map[string]string{
+	respondwithJSON(w, http.StatusCreated, map[string]string{
 		"client_id":     clientID,
 		"client_secret": clientSecret,
 	})

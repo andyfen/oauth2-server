@@ -2,7 +2,6 @@ package server
 
 import (
 	"net/http"
-	"os"
 	"time"
 
 	"github.com/andyfen/oauth-server/server/auth"
@@ -26,19 +25,11 @@ func New(conf *config.Config) (*http.Server, error) {
 	handler.Register(r)
 
 	srv := &http.Server{
-		Addr:         ":" + getenv("PORT", "8080"),
+		Addr:         ":" + conf.PORT,
 		Handler:      r,
 		ReadTimeout:  60 * time.Second,
 		WriteTimeout: 60 * time.Second,
 		IdleTimeout:  60 * time.Second,
 	}
 	return srv, nil
-}
-
-func getenv(key, fallback string) string {
-	value := os.Getenv(key)
-	if len(value) == 0 {
-		return fallback
-	}
-	return value
 }

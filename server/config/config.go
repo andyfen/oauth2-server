@@ -1,36 +1,50 @@
 package config
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
+	"os"
 
-	"github.com/kelseyhightower/envconfig"
+	"github.com/joho/godotenv"
 )
 
 // Config - app confiuration
 type Config struct {
-	Domain struct {
-		URL string `envconfig:"DOMAIN_URL"`
-	}
-	Server struct {
-		HOST string `envconfig:"SERVER_HOST"`
-		PORT string `envconfig:"SERVER_PORT"`
-	}
-	Redis struct {
-		Addr string `envconfig:"REDIS_ADDR"`
-	}
-	Auth struct {
-		JWTKey string `envconfig:"JWT_KEY"`
-	}
+	DomainURL string `json:"domain_url"`
+	HOST      string `json:"host"`
+	PORT      string `json:"port"`
+	RedisAddr string `json:"redis_url"`
+	JWTKey    string `json:"jwt_key"`
 }
 
 // New config
 func New() *Config {
-	var cfg Config
 
-	err := envconfig.Process("", &cfg)
+	err := godotenv.Load()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Error loading .env file")
 	}
 
+	cfg := Config{
+		DomainURL: os.Getenv("DOMAIN_URL"),
+		HOST:      os.Getenv("HOST"),
+		PORT:      os.Getenv("PORT"),
+		RedisAddr: os.Getenv("REDIS_ADDR"),
+		JWTKey:    os.Getenv("JWT_KEY"),
+	}
+
+	printRespJSON(cfg)
+
 	return &cfg
+}
+
+func printRespJSON(resp interface{}) {
+	b, err := json.MarshalIndent(resp, "", "    ")
+	if err != nil {
+		fmt.Println("unable to decode response: ", err)
+		return
+	}
+
+	fmt.Println(string(b))
 }
