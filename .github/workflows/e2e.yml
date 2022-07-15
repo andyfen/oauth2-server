@@ -58,6 +58,7 @@ jobs:
         npm t
       env:
         CI: true
+        APP_ENV: ${{secrets.APP_ENV}}
         DOMAIN_URL: ${{secrets.DOMAIN_URL}}
         HOST: ${{secrets.HOST}}
         PORT: ${{secrets.PORT}}
