@@ -58,5 +58,8 @@ jobs:
         npm t
       env:
         CI: true
-        CLIENT_ID: ${{secrets.CLIENT_ID}}
-        CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+        DOMAIN_URL: ${{secrets.DOMAIN_URL}}
+        HOST: ${{secrets.HOST}}
+        PORT: ${{secrets.PORT}}
+        REDIS_ADDR: ${{secrets.REDIS_ADDR}}
+        JWT_KEY: ${{secrets.JWT_KEY}}
