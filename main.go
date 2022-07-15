@@ -1,28 +1,38 @@
 package main
 
 import (
-	"github.com/andyfen/oauth-server/auth"
-	"github.com/andyfen/oauth-server/config"
-	"github.com/andyfen/oauth-server/handler"
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
-	"net/http"
+	"context"
+	"log"
+	"os"
+	"os/signal"
+	"time"
+
+	"github.com/andyfen/oauth-server/server"
+	"github.com/andyfen/oauth-server/server/config"
 )
 
 func main() {
-	config := config.New()
+	stopChan := make(chan os.Signal)
+	signal.Notify(stopChan, os.Interrupt)
 
-	clientStore := auth.NewClientStore()
-	authManager := auth.NewAuthManager(config, clientStore)
-	authServer := auth.NewAuthServer(authManager)
+	conf := config.New()
 
-	r := chi.NewRouter()
+	srv, err := server.New(conf)
+	if err != nil {
+		log.Fatal(err)
+	}
 
-	r.Use(middleware.RequestID)
-	r.Use(middleware.Logger)
+	go func() {
+		if err := srv.ListenAndServe(); err != nil {
+			log.Fatal(err)
+		}
+	}()
 
-	handler := handler.New(authServer, authManager, clientStore)
-	handler.Register(r)
+	<-stopChan
+	log.Println("Shutting down server...")
 
-	http.ListenAndServe(":8080", r)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	srv.Shutdown(ctx)
+
+	defer cancel()
 }

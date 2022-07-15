@@ -1,7 +1,9 @@
 package auth
 
 import (
-	"github.com/andyfen/oauth-server/config"
+	"log"
+
+	"github.com/andyfen/oauth-server/server/config"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/go-oauth2/oauth2/v4/errors"
 	"github.com/go-oauth2/oauth2/v4/generates"
@@ -10,10 +12,8 @@ import (
 	"github.com/go-oauth2/oauth2/v4/store"
 	oredis "github.com/go-oauth2/redis/v4"
 	"github.com/go-redis/redis/v8"
-	"log"
 )
 
-// NewAuthManager ...
 func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *manage.Manager {
 	manager := manage.NewDefaultManager()
 
@@ -32,13 +32,11 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 	return manager
 }
 
-// NewClientStore ...
 func NewClientStore() *store.ClientStore {
 	clientStore := store.NewClientStore()
 	return clientStore
 }
 
-// NewAuthServer ...
 func NewAuthServer(manager *manage.Manager) *server.Server {
 
 	srv := server.NewDefaultServer(manager)

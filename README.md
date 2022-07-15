@@ -7,7 +7,11 @@
 $ docker-compose up -d
 ```
 
-#### Fake Credentials
+```
+$ go run main.go
+```
+
+#### Credentials
 ```
 curl http://localhost:8080/credentials
 ```

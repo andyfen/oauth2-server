@@ -4,9 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/andyfen/oauth-server/auth"
+	"github.com/andyfen/oauth-server/server/middleware"
 	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
 	"github.com/go-oauth2/oauth2/v4/manage"
 	"github.com/go-oauth2/oauth2/v4/server"
 	"github.com/go-oauth2/oauth2/v4/store"
@@ -30,7 +29,6 @@ func New(srv *server.Server, manager *manage.Manager, clientStore *store.ClientS
 
 // Register - registers all the routes
 func (h *Handler) Register(r *chi.Mux) {
-	r.Use(middleware.Logger)
 
 	r.Get("/credentials", h.credentialsHandler)
 
@@ -40,7 +38,9 @@ func (h *Handler) Register(r *chi.Mux) {
 	})
 
 	r.Route("/api", func(r chi.Router) {
-		r.Get("/protected", auth.ValidateToken(h.protectedHandler, h.srv))
+		r.Use(middleware.ValidateOAuthToken(h.srv))
+
+		r.Get("/protected", h.protectedHandler)
 	})
 }
 

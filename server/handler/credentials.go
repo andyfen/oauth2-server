@@ -3,7 +3,6 @@ package handler
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"encoding/json"
 	"net/http"
 
 	"github.com/go-oauth2/oauth2/v4/models"
@@ -31,9 +30,7 @@ func (h *Handler) credentialsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Content-Type", "application/json")
-
-	json.NewEncoder(w).Encode(map[string]string{
+	respondwithJSON(w, http.StatusOK, map[string]string{
 		"client_id":     clientID,
 		"client_secret": clientSecret,
 	})
