@@ -3,13 +3,13 @@ package handler
 import (
 	"net/http"
 
-	"github.com/andyfen/oauth-server/server/utils"
+	"github.com/andyfen/oauth-server/server/auth"
 	"github.com/go-oauth2/oauth2/v4/models"
 )
 
 func (h *Handler) credentialsHandler(w http.ResponseWriter, r *http.Request) {
-	clientID, _ := utils.RandomHex(32)
-	clientSecret, _ := utils.RandomHex(32)
+	clientID := auth.CreateClientID()
+	clientSecret := auth.CreateClientSecret()
 
 	err := h.clientStore.Set(clientID, &models.Client{
 		ID:     clientID,

@@ -1,4 +1,4 @@
-name: E2E Tests
+name: Test
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test-e2e:
+  test:
     strategy:
       matrix:
         os: [ubuntu-latest]

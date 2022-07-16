@@ -31,5 +31,6 @@ func New(conf *config.Config) (*http.Server, error) {
 		WriteTimeout: 60 * time.Second,
 		IdleTimeout:  60 * time.Second,
 	}
+
 	return srv, nil
 }

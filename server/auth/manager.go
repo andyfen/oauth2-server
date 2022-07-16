@@ -1,7 +1,6 @@
 package auth
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/andyfen/oauth-server/server/config"
@@ -25,7 +24,6 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 		DB:       0,  // use default DB
 	}))
 
-	fmt.Println(config.RedisAddr)
 	manager.MapClientStorage(clientStore)
 
 	// generate jwt access token
