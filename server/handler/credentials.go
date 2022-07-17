@@ -14,7 +14,7 @@ func (h *Handler) credentialsHandler(w http.ResponseWriter, r *http.Request) {
 	err := h.clientStore.Set(clientID, &models.Client{
 		ID:     clientID,
 		Secret: clientSecret,
-		Domain: "http://localhost:8080",
+		Domain: h.conf.DomainURL,
 	})
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

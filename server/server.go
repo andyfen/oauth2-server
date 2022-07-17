@@ -21,7 +21,7 @@ func New(conf *config.Config) (*http.Server, error) {
 	r.Use(middleware.RequestID)
 	r.Use(middleware.Logger)
 
-	handler := handler.New(authServer, authManager, clientStore)
+	handler := handler.New(authServer, authManager, clientStore, conf)
 	handler.Register(r)
 
 	srv := &http.Server{

@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"github.com/andyfen/oauth-server/server/config"
 	"github.com/andyfen/oauth-server/server/middleware"
 	"github.com/go-chi/chi"
 	"github.com/go-oauth2/oauth2/v4/manage"
@@ -10,14 +11,16 @@ import (
 
 // Handler route handler
 type Handler struct {
+	conf        *config.Config
 	srv         *server.Server
 	manager     *manage.Manager
 	clientStore *store.ClientStore
 }
 
 // New handler
-func New(srv *server.Server, manager *manage.Manager, clientStore *store.ClientStore) *Handler {
+func New(srv *server.Server, manager *manage.Manager, clientStore *store.ClientStore, conf *config.Config) *Handler {
 	return &Handler{
+		conf:        conf,
 		srv:         srv,
 		manager:     manager,
 		clientStore: clientStore,
