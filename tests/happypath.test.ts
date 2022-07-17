@@ -45,11 +45,14 @@ describe('Happy path', () => {
     } = await axios({
       method: 'post',
       url: 'http://localhost:8080/oauth2/token',
-      headers: {},
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
       data: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}&scope=read`,
     })
 
     expect(access_token).toBeDefined()
+    expect(token_type).toBe("Bearer")
 
     const {
       data: { message },
