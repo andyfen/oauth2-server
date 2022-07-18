@@ -2,17 +2,18 @@ package auth
 
 import (
 	"crypto/rand"
+	"encoding/base64"
 	"encoding/hex"
 )
 
 func CreateClientID() string {
 	str, _ := randomHex(32)
-	return str
+	return base64.URLEncoding.EncodeToString([]byte(str))
 }
 
 func CreateClientSecret() string {
 	str, _ := randomHex(32)
-	return str
+	return base64.URLEncoding.EncodeToString([]byte(str))
 }
 
 func randomHex(n int) (string, error) {

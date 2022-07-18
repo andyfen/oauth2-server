@@ -2,7 +2,7 @@
 
 
 
-### Run
+### Local
 ```
 $ docker-compose up -d
 ```
@@ -18,8 +18,8 @@ curl http://localhost:8080/credentials
 
 ```
 {
-    "client_id": "35c6261e85960ccdde15d4bd6ef6032c4d77b434217b411807242edbe2edafe7",
-    "client_secret": "c2f7efda2b999e8acd565c793b31feab7d9cf2cb4cb1660d8bcfeae3f99b3f4d"
+    "client_id": "M2JkMjFhYjRiYWI3YzdmYmU3NGI3MWEwNDI1M2Q0NjQ3YTUxZGZlN2EzODA1YTgzZGNkNmQ3MDIyODkwZjgyMw==",
+    "client_secret": "wNDI1M2Q0NjQ3YTUxZGZlN2EzODAM2JGNkNmQ3MDIyODkwZjgyMwrRkMjFhYjRiYWI3YzdmYmU3NGI3MWE1YTgzZ"
 }
 ```
 

@@ -12,6 +12,7 @@ import (
 )
 
 func main() {
+
 	stopChan := make(chan os.Signal)
 	signal.Notify(stopChan, os.Interrupt)
 
