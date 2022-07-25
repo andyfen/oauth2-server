@@ -10,7 +10,7 @@ import (
 func (h *Handler) protectedHandler(w http.ResponseWriter, r *http.Request) {
 	tokenInfo, err := token.FromContext(r.Context())
 	if err != nil {
-		respondWithError(w, http.StatusInternalServerError, ":(")
+		respondWithError(w, http.StatusBadRequest, ":(")
 	}
 
 	respondwithJSON(w, http.StatusOK, map[string]interface{}{

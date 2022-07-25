@@ -33,8 +33,8 @@ func (h *Handler) Register(r *chi.Mux) {
 	r.Get("/credentials", h.credentialsHandler)
 
 	r.Route("/oauth2", func(r chi.Router) {
-		r.Get("/token", h.tokenHandler)
-		r.Post("/token", h.tokenHandler)
+		r.Get("/token", h.createTokenHandler)
+		r.Post("/token", h.createTokenHandler)
 	})
 
 	r.Route("/api", func(r chi.Router) {

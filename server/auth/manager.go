@@ -27,14 +27,15 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 	manager.MapClientStorage(clientStore)
 
 	// generate jwt access token
-	manager.MapAccessGenerate(generates.NewJWTAccessGenerate("", []byte(config.JWTKey), jwt.SigningMethodHS512))
+	manager.MapAccessGenerate(
+		generates.NewJWTAccessGenerate("", []byte(config.JWTKey), jwt.SigningMethodHS512),
+	)
 
 	return manager
 }
 
 func NewClientStore() *store.ClientStore {
-	clientStore := store.NewClientStore()
-	return clientStore
+	return store.NewClientStore()
 }
 
 func NewAuthServer(manager *manage.Manager) *server.Server {
