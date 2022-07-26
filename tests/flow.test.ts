@@ -38,6 +38,7 @@ describe('Happy path', () => {
 
     console.log(JSON.stringify((await axios.get(`http://localhost:8080/api/protected?access_token=${access_token}`)).data, null, 4))
   })
+  
 
   it('should create token and view protected routes via POST', async () => {
     const {

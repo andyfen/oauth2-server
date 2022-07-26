@@ -2,6 +2,7 @@ package auth
 
 import (
 	"log"
+	"time"
 
 	"github.com/andyfen/oauth-server/server/config"
 	"github.com/dgrijalva/jwt-go"
@@ -46,6 +47,13 @@ func NewAuthServer(manager *manage.Manager) *server.Server {
 	srv.SetClientInfoHandler(server.ClientFormHandler)
 
 	manager.SetRefreshTokenCfg(manage.DefaultRefreshTokenCfg)
+
+	// set the client grant token config
+	manager.SetClientTokenCfg(&manage.Config{
+		AccessTokenExp:    time.Duration(60) * time.Second,
+		RefreshTokenExp:   time.Duration(24) * time.Hour,
+		IsGenerateRefresh: true,
+	})
 
 	srv.SetInternalErrorHandler(func(err error) (re *errors.Response) {
 		log.Println("Internal Error:", err.Error())
