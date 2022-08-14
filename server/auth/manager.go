@@ -4,6 +4,7 @@ import (
 	"log"
 	"time"
 
+	postgres "github.com/andyfen/oauth-server/server/auth/oauth2gorm"
 	"github.com/andyfen/oauth-server/server/config"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/go-oauth2/oauth2/v4/errors"
@@ -11,19 +12,17 @@ import (
 	"github.com/go-oauth2/oauth2/v4/manage"
 	"github.com/go-oauth2/oauth2/v4/server"
 	"github.com/go-oauth2/oauth2/v4/store"
-	oredis "github.com/go-oauth2/redis/v4"
-	"github.com/go-redis/redis/v8"
 )
 
 func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *manage.Manager {
 	manager := manage.NewDefaultManager()
 
-	// use redis token store
-	manager.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
-		Addr:     config.RedisAddr,
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	}))
+	// use mysql token store
+	store := postgres.NewTokenStore(
+		postgres.NewConfig("postgres://root:secret@localhost:5432/mydb", "tableName"),
+		0,
+	)
+	manager.MapTokenStorage(store)
 
 	manager.MapClientStorage(clientStore)
 
