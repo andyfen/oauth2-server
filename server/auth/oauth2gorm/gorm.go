@@ -39,7 +39,7 @@ func NewConfig(dsn string, tableName string) *Config {
 
 	config := &Config{
 		TableName:   tableName,
-		MaxLifetime: time.Hour * 2,
+		MaxLifetime: time.Hour * 2, // FIXME...
 		Dialector:   d,
 	}
 

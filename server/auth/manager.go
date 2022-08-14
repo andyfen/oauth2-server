@@ -4,7 +4,7 @@ import (
 	"log"
 	"time"
 
-	postgres "github.com/andyfen/oauth-server/server/auth/oauth2gorm"
+	oauth2gorm "github.com/andyfen/oauth-server/server/auth/oauth2gorm"
 	"github.com/andyfen/oauth-server/server/config"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/go-oauth2/oauth2/v4/errors"
@@ -18,8 +18,8 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 	manager := manage.NewDefaultManager()
 
 	// use mysql token store
-	store := postgres.NewTokenStore(
-		postgres.NewConfig("postgres://root:secret@localhost:5432/mydb", "tableName"),
+	store := oauth2gorm.NewTokenStore(
+		oauth2gorm.NewConfig("postgres://root:secret@localhost:5432/mydb", ""),
 		0,
 	)
 	manager.MapTokenStorage(store)
@@ -49,7 +49,7 @@ func NewAuthServer(manager *manage.Manager) *server.Server {
 
 	// set the client grant token config
 	manager.SetClientTokenCfg(&manage.Config{
-		AccessTokenExp:    time.Duration(60) * time.Second,
+		AccessTokenExp:    time.Duration(60) * time.Second, // FIXME
 		RefreshTokenExp:   time.Duration(24) * time.Hour,
 		IsGenerateRefresh: true,
 	})

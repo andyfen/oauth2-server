@@ -222,9 +222,9 @@ func (s *TokenStore) GetByRefresh(ctx context.Context, refresh string) (oauth2.T
 		Find(&item).Error; err != nil {
 		return nil, err
 	}
-	/*if item.ID == 0 {
+	if item.ID == 0 {
 		return nil, nil
-	}*/
+	}
 
 	return s.toTokenInfo(item.Data), nil
 }
