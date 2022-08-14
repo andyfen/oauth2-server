@@ -22,6 +22,9 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 		oauth2gorm.NewConfig("postgres://root:secret@localhost:5432/mydb", ""),
 		0,
 	)
+
+	defer store.Close()
+
 	manager.MapTokenStorage(store)
 
 	manager.MapClientStorage(clientStore)
