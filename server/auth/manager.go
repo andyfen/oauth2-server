@@ -11,10 +11,9 @@ import (
 	"github.com/go-oauth2/oauth2/v4/generates"
 	"github.com/go-oauth2/oauth2/v4/manage"
 	"github.com/go-oauth2/oauth2/v4/server"
-	"github.com/go-oauth2/oauth2/v4/store"
 )
 
-func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *manage.Manager {
+func NewAuthManager(config *config.Config, clientStore *oauth2gorm.ClientStore) *manage.Manager {
 	manager := manage.NewDefaultManager()
 
 	// use mysql token store
@@ -27,6 +26,7 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 
 	manager.MapTokenStorage(store)
 
+	// ----
 	manager.MapClientStorage(clientStore)
 
 	// generate jwt access token
@@ -37,8 +37,8 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 	return manager
 }
 
-func NewClientStore() *store.ClientStore {
-	return store.NewClientStore()
+func NewClientStore() *oauth2gorm.ClientStore {
+	return oauth2gorm.NewClientStore(oauth2gorm.NewConfig("postgres://root:secret@localhost:5432/mydb", ""))
 }
 
 func NewAuthServer(manager *manage.Manager) *server.Server {
