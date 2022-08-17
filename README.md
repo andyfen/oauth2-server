@@ -1,4 +1,4 @@
-# oauth2 server
+# oauth2 authorization server
 
 
 
