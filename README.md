@@ -59,4 +59,10 @@ curl -v -X GET http://localhost:8080/api/protected \
 
 todo
 
+curl http://localhost:8080/credentials
 
+
+curl -X POST http://localhost:8080/oauth2/token \
+ -d "grant_type=client_credentials&client_id=YjAwY2Y3Nzc5NTg4NTBhOTNkZjhiZjg2ZTg5YWVkOTY1ODYwMGI3MzlhNTQ0MDU1ZDgwNGQ3OTdlYzkwN2Q0ZQ==&client_secret=NGZhMjk5NGIwZjA3OWU3MDM1MjNhNjIyMjZkNDg0YmE3OWZjZDE5ODI2ZWQwZGQ3N2FjMmY3YWNhYzYyMzg2ZQ==&scope=read"
+
+curl http://localhost:8080/api/protected?access_token=eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJZakF3WTJZM056YzVOVGc0TlRCaE9UTmtaamhpWmpnMlpUZzVZV1ZrT1RZMU9EWXdNR0kzTXpsaE5UUTBNRFUxWkRnd05HUTNPVGRsWXprd04yUTBaUT09IiwiZXhwIjoxNjYwNDk4NzMwfQ.CBWeTGuUwcmMqiS-fYXqcdGm6_lbJOhjA7QuH_CKdpaqry8omS76u16fu-k3LBWzPNFTziJ1FTrAkP6aenqaxA

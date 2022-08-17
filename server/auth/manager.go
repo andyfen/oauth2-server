@@ -4,27 +4,29 @@ import (
 	"log"
 	"time"
 
+	oauth2gorm "github.com/andyfen/oauth-server/server/auth/oauth2gorm"
 	"github.com/andyfen/oauth-server/server/config"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/go-oauth2/oauth2/v4/errors"
 	"github.com/go-oauth2/oauth2/v4/generates"
 	"github.com/go-oauth2/oauth2/v4/manage"
 	"github.com/go-oauth2/oauth2/v4/server"
-	"github.com/go-oauth2/oauth2/v4/store"
-	oredis "github.com/go-oauth2/redis/v4"
-	"github.com/go-redis/redis/v8"
 )
 
-func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *manage.Manager {
+func NewAuthManager(config *config.Config, clientStore *oauth2gorm.ClientStore) *manage.Manager {
 	manager := manage.NewDefaultManager()
 
-	// use redis token store
-	manager.MapTokenStorage(oredis.NewRedisStore(&redis.Options{
-		Addr:     config.RedisAddr,
-		Password: "", // no password set
-		DB:       0,  // use default DB
-	}))
+	// use mysql token store
+	store := oauth2gorm.NewTokenStore(
+		oauth2gorm.NewConfig("postgres://root:secret@localhost:5432/mydb", ""),
+		0,
+	)
 
+	defer store.Close()
+
+	manager.MapTokenStorage(store)
+
+	// ----
 	manager.MapClientStorage(clientStore)
 
 	// generate jwt access token
@@ -35,8 +37,8 @@ func NewAuthManager(config *config.Config, clientStore *store.ClientStore) *mana
 	return manager
 }
 
-func NewClientStore() *store.ClientStore {
-	return store.NewClientStore()
+func NewClientStore() *oauth2gorm.ClientStore {
+	return oauth2gorm.NewClientStore(oauth2gorm.NewConfig("postgres://root:secret@localhost:5432/mydb", ""))
 }
 
 func NewAuthServer(manager *manage.Manager) *server.Server {
@@ -50,7 +52,7 @@ func NewAuthServer(manager *manage.Manager) *server.Server {
 
 	// set the client grant token config
 	manager.SetClientTokenCfg(&manage.Config{
-		AccessTokenExp:    time.Duration(60) * time.Second,
+		AccessTokenExp:    time.Duration(60) * time.Second, // FIXME
 		RefreshTokenExp:   time.Duration(24) * time.Hour,
 		IsGenerateRefresh: true,
 	})
