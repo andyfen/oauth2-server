@@ -16,20 +16,16 @@ import (
 func NewAuthManager(config *config.Config, clientStore *oauth2gorm.ClientStore) *manage.Manager {
 	manager := manage.NewDefaultManager()
 
-	// use mysql token store
 	store := oauth2gorm.NewTokenStore(
-		oauth2gorm.NewConfig("postgres://root:secret@localhost:5432/mydb", ""),
+		oauth2gorm.NewConfig(config.PostgresAddr, ""),
 		0,
 	)
 
 	defer store.Close()
 
 	manager.MapTokenStorage(store)
-
-	// ----
 	manager.MapClientStorage(clientStore)
 
-	// generate jwt access token
 	manager.MapAccessGenerate(
 		generates.NewJWTAccessGenerate("", []byte(config.JWTKey), jwt.SigningMethodHS512),
 	)
@@ -37,8 +33,8 @@ func NewAuthManager(config *config.Config, clientStore *oauth2gorm.ClientStore) 
 	return manager
 }
 
-func NewClientStore() *oauth2gorm.ClientStore {
-	return oauth2gorm.NewClientStore(oauth2gorm.NewConfig("postgres://root:secret@localhost:5432/mydb", ""))
+func NewClientStore(config *config.Config) *oauth2gorm.ClientStore {
+	return oauth2gorm.NewClientStore(oauth2gorm.NewConfig(config.PostgresAddr, ""))
 }
 
 func NewAuthServer(manager *manage.Manager) *server.Server {
@@ -50,10 +46,9 @@ func NewAuthServer(manager *manage.Manager) *server.Server {
 
 	manager.SetRefreshTokenCfg(manage.DefaultRefreshTokenCfg)
 
-	// set the client grant token config
 	manager.SetClientTokenCfg(&manage.Config{
-		AccessTokenExp:    time.Duration(60) * time.Second, // FIXME
-		RefreshTokenExp:   time.Duration(24) * time.Hour,
+		AccessTokenExp:    time.Duration(30) * time.Minute,
+		RefreshTokenExp:   time.Duration(72) * time.Hour,
 		IsGenerateRefresh: true,
 	})
 

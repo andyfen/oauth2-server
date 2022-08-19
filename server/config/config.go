@@ -11,11 +11,11 @@ import (
 
 // Config - app confiuration
 type Config struct {
-	DomainURL string `json:"domain_url"`
-	HOST      string `json:"host"`
-	PORT      string `json:"port"`
-	RedisAddr string `json:"redis_url"`
-	JWTKey    string `json:"jwt_key"`
+	DomainURL    string `json:"domain_url"`
+	HOST         string `json:"host"`
+	PORT         string `json:"port"`
+	PostgresAddr string `json:"postgres_url"`
+	JWTKey       string `json:"jwt_key"`
 }
 
 // New config
@@ -29,11 +29,11 @@ func New() *Config {
 	}
 
 	cfg := Config{
-		DomainURL: os.Getenv("DOMAIN_URL"),
-		HOST:      os.Getenv("HOST"),
-		PORT:      os.Getenv("PORT"),
-		RedisAddr: os.Getenv("REDIS_ADDR"),
-		JWTKey:    os.Getenv("JWT_KEY"),
+		DomainURL:    os.Getenv("DOMAIN_URL"),
+		HOST:         os.Getenv("HOST"),
+		PORT:         os.Getenv("PORT"),
+		PostgresAddr: os.Getenv("POSTGRES_ADDR"),
+		JWTKey:       os.Getenv("JWT_KEY"),
 	}
 
 	printRespJSON(cfg)

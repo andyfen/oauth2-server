@@ -51,7 +51,7 @@ jobs:
       if: steps.go-cache.outputs.cache-hit != 'true'
       run: go mod download
 
-    - name: Run E2E Tests
+    - name: Run endpoint tests
       run: |
         go run main.go &
         sleep 10
@@ -62,5 +62,5 @@ jobs:
         DOMAIN_URL: ${{secrets.DOMAIN_URL}}
         HOST: ${{secrets.HOST}}
         PORT: ${{secrets.PORT}}
-        REDIS_ADDR: ${{secrets.REDIS_ADDR}}
+        POSTGRES_ADDR: ${{secrets.POSTGRES_ADDR}}
         JWT_KEY: ${{secrets.JWT_KEY}}

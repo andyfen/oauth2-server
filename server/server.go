@@ -12,7 +12,7 @@ import (
 )
 
 func New(conf *config.Config) (*http.Server, error) {
-	clientStore := auth.NewClientStore()
+	clientStore := auth.NewClientStore(conf)
 	authManager := auth.NewAuthManager(conf, clientStore)
 	authServer := auth.NewAuthServer(authManager)
 
