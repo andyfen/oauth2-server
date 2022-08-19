@@ -29,11 +29,13 @@ describe('Refresh Token', () => {
       data: `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}&scope=A B C`,
     })
 
-    // https://datatracker.ietf.org/doc/html/rfc6749#section-6
-    // grant_type=refresh_token&refresh_token={the refresh_token obtained in the previous response}
 
     expect(data.access_token).toBeDefined()
     expect(data.refresh_token).toBeDefined()
+
+    // https://datatracker.ietf.org/doc/html/rfc6749#section-6
+    // grant_type=refresh_token&refresh_token={the refresh_token obtained in the previous response}
+
 
     /*
     * not working ???

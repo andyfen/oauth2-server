@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-describe('Happy path', () => {
+describe('Scopes', () => {
   let clientId: string | undefined;
   let clientSecret: string | undefined;
 
